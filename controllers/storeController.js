@@ -22,5 +22,5 @@ exports.getStores = async (req, res) => {
   // 1. Query the database all stores
   const stores = await Store.find();
   console.log(stores);
-  res.render('stores', { title: 'Stores' });
+  res.render('stores', { title: 'Stores', stores });
 };
