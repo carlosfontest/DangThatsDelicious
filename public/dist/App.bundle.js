@@ -87,9 +87,7 @@ function autocomplete(input, latInput, lngInput) {
   });
   // If someoner hits enter
   input.on('keydown', function (e) {
-    console.log(111);
     if (e.keyCode === 13) {
-      console.log(2222);
       e.preventDefault();
     }
   });

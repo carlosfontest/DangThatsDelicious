@@ -7,6 +7,8 @@
 
 # dependencies
 /node_modules
+variables.env
+variables.env.now
 
 # IDEs and editors
 /.idea
