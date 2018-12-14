@@ -6,11 +6,11 @@ const authController = require('../controllers/authController');
 const { catchErrors } = require('../handlers/errorHandlers')
 
 // Do work here
-router.get('/', storeController.homePage);
-router.get('/add', storeController.addStore);
+router.get('/', catchErrors(storeController.getStores));
+router.get('/add', authController.isLoggedIn, storeController.addStore);
 router.get('/stores', catchErrors(storeController.getStores));
 
-router.post('/add', 
+router.post('/add',
   storeController.upload, 
   catchErrors(storeController.resize), 
   catchErrors(storeController.createStore)
@@ -39,6 +39,9 @@ router.post('/register',
   userController.register,
   authController.login
 );
+router.post('/login', authController.login);
+
+router.get('/logout', authController.logout);
 
 
 module.exports = router;
