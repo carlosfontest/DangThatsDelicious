@@ -54,9 +54,27 @@ exports.createStore = async (req, res) => {
 };
 
 exports.getStores = async (req, res) => {
+  const page = req.params.page || 1;
+  const limit = 4;
+  const skip = (page * limit) - limit;
+
   // 1. Query the database all stores
-  const stores = await Store.find();
-  res.render('stores', { title: 'Stores', stores });
+  const storesPromise = Store
+    .find()
+      .skip(skip)
+        .limit(limit)
+          .sort({ created: 'desc' });
+  const countPromise = Store.count();
+  const [stores, count] = await Promise.all([storesPromise, countPromise]);
+
+  const pages = Math.ceil(count / limit);
+
+  if (!stores.length && skip) {
+    req.flash('info', `Hey! You asked for page ${page}. But that does not exist. So I put you on page ${pages}!`);
+    res.redirect(`/stores/page/${pages}`);
+    return;
+  }
+  res.render('stores', { title: 'Stores', stores, count, pages, page });
 };
 
 const confirmOwner = (store, user) => {
@@ -87,7 +105,7 @@ exports.updateStore = async (req, res) => {
 
 exports.getStoreBySlug = async (req, res, next) => {
   // El populate lo que hace es traerme los datos del autor en vez de tener solo el ID
-  const store = await Store.findOne({ slug: req.params.slug }).populate('author');
+  const store = await Store.findOne({ slug: req.params.slug }).populate('author reviews');
   if (!store) return next();
   res.render('store', { store, title: store.name })
 };
@@ -164,4 +182,9 @@ exports.getHearts = async (req, res) => {
     _id: { $in: req.user.hearts }
   });
   res.render('stores', { title: 'Hearted Stores', stores });
+};
+
+exports.getTopStores = async (req, res) => {
+  const stores = await Store.getTopStores();
+  res.render('topStores', { stores, title: '🟊 Top Stores' });
 };
