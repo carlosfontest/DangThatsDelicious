@@ -32,6 +32,12 @@ Sistema de sucursales de la empresa *"Dang Thas Delicious"*. Posee sistema de re
       # Load sample data
       npm run sample
     ```
+    |     Nombre    |        Email       | Password |
+    |:-------------:|:------------------:|:--------:|
+    | Carlos Fontes | carlos@example.com | carlos   |
+    | John Filip    | john@example.com   | john     |
+    | Merin Daniels | merin@example.com  | merin    |
+
 4. Ejecutar la aplicación en modo *developer* en [http://localhost:7777](http://localhost:7777)
     ```bash
     # Install Dependencies
