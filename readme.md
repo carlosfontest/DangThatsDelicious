@@ -9,14 +9,37 @@ Sistema de sucursales de la empresa *"Dang Thas Delicious"*. Posee sistema de re
 [https://dangthats.herokuapp.com/](https://dangthats.herokuapp.com/ "Dang Thats Delicious")
 
 ## ***Quick Start***
->Es necesario tener ***node.js*** para poder ejecutar la aplicación.
-```bash
-# Install Dependencies
-npm install
+>Es necesario tener instalado [MongoDB](https://docs.mongodb.com/manual/installation/), tener una cuenta en [Mailtrap](https://mailtrap.io/inboxes), un token de [Google Maps API](https://developers.google.com/maps/documentation/maps-static/get-api-key) y tener [Node.js](https://nodejs.org/en/download/) instalado.
+1. Primero se deberá crear un archivo .env, para las variables de entorno.
+2. En el archivo .env añadir settings de ***MongoDB***, ***Mailtrap*** y ***GoogleMaps API***.
+    ```js
+      NODE_ENV=(development/production)
+      DATABASE=(link host MongoDB)
+      MAIL_USER=(user Mailtrap)
+      MAIL_PASS=(pass Mailtrap)
+      MAIL_HOST=(host Mailtrap)
+      MAIL_PORT=(port Mailtrap)
+      PORT=(port development)(7777 by default)
+      MAP_KEY=(key API GoogleMaps)
+      SECRET=(secret Node)
+      KEY=(key Node)
+    ```
+3. Añadir data de muestra a MongoDB
+    ```bash
+      # Delete all data in MongoDB
+      npm run blowitallaway
 
-# Serve on localhost:7777
-npm run dev
-```
+      # Load sample data
+      npm run sample
+    ```
+4. Ejecutar la aplicación en modo *developer* en [http://localhost:7777](http://localhost:7777)
+    ```bash
+    # Install Dependencies
+    npm install
+
+    # Serve on localhost:7777
+    npm run dev
+    ```
 
 
 ## ***ScreenShots***
